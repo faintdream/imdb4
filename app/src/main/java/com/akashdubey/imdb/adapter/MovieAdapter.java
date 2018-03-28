@@ -17,9 +17,12 @@ import com.akashdubey.imdb.DetailsScreen;
 import com.akashdubey.imdb.MainActivity;
 import com.akashdubey.imdb.R;
 import com.akashdubey.imdb.model.MovieModel;
+import com.akashdubey.imdb.network.MyWebService;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import static com.akashdubey.imdb.WebList.myWebService;
 
 //import static com.akashdubey.imdb.MainActivity.movieAdapter;
 
@@ -57,14 +60,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             public void onClick(View view) {
                 Log.i("LEGO", "ID " + movieModel.getmId() + ", NAME " + movieModel.getmTitle());
                 jumpScreen(holder.itemView, movieModel.getmId().toString());
-
             }
         });
 
         holder.giveRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.itemView.getContext(), "You clicked on : "+movieModel.getmId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(holder.itemView.getContext(), "You clicked on : "+movieModel.getmId(), Toast.LENGTH_SHORT).show();
+                myWebService = new MyWebService();
+                myWebService.getGuestSessionID();
             }
         });
     }

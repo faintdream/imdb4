@@ -2,6 +2,7 @@ package com.akashdubey.imdb.network;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 
 import com.akashdubey.imdb.DetailsScreen;
 import com.akashdubey.imdb.MainActivity;
@@ -45,6 +46,8 @@ public class MyWebService {
             "http://api.themoviedb.org/3/movie/latest?api_key=8496be0b2149805afa458ab8ec27560c";
     public static final String URL_TOP_RATED_MOVIES =
             "http://api.themoviedb.org/3/movie/top_rated?api_key=8496be0b2149805afa458ab8ec27560c";
+    public static final String URL_GUEST_SESSION_GENERATOR =
+                    "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=8496be0b2149805afa458ab8ec27560c";
 
     public static final String VOTE_COUNT = "vote_count";
     public static final String VOTE_AVERAGE = "vote_average";
@@ -53,6 +56,9 @@ public class MyWebService {
     public static final String MOVIE_TITLE = "title";
     public static final String RELEASE_DATE = "release_date";
     public static final String MOVIE_ID = "id";
+    public static final String GUEST_SESSION_ID="guest_session_id";
+
+    public static String guestSessionId="UNKNOWN";
 
 
 //    MainActivity mainActivity = new MainActivity();
@@ -309,6 +315,30 @@ public class MyWebService {
 
     }
 
+    public void getGuestSessionID(){
+
+        String url=URL_GUEST_SESSION_GENERATOR;
+        request=new Request.Builder().url(url).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String myResponse=response.body().string().toString();
+                try{
+                    jsonObject=new JSONObject(myResponse);
+                    guestSessionId=jsonObject.get(GUEST_SESSION_ID).toString();
+                    Log.i("LEGO","Guest session ID :"+ guestSessionId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
 
     private void publishResult(List<MovieModel> movieModelList) {
 
