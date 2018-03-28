@@ -60,6 +60,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
             }
         });
+
+        holder.giveRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(holder.itemView.getContext(), "You clicked on : "+movieModel.getmId(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -70,7 +77,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
     public class MyHolder extends RecyclerView.ViewHolder {
         RatingBar ratings;
-        ImageView movieImage;
+        ImageView movieImage,giveRating;
         TextView movieTitle, releaseDate, popularity, votesCount;
 
         public MyHolder(View itemView) {
@@ -80,6 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             releaseDate = itemView.findViewById(R.id.releasedateTV);
             votesCount = itemView.findViewById(R.id.votesTV);
             ratings = itemView.findViewById(R.id.ratingsRB);
+            giveRating=itemView.findViewById(R.id.starIconIV);
         }
 
 
