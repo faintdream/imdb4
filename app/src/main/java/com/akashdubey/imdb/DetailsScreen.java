@@ -27,6 +27,17 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
     public static RecyclerView movieDetailRV, posterRV, trailerRV, castRV, crewRV;
     String movieId;
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MovieDetailsModel.movieDetailsModelList.clear();
+        MovieDetailsModel.posterModelList.clear();
+        MovieDetailsModel.trailerModelList.clear();
+        MovieDetailsModel.castModelList.clear();
+        MovieDetailsModel.crewModelList.clear();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
