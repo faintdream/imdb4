@@ -50,6 +50,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
         }
         holder.castTitle.setText(movieDetailsModel.getmCastTitle());
+        holder.castCharacter.setText(movieDetailsModel.getmCastCharacter());
 
     }
 
@@ -61,12 +62,13 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
     public class CastHolder extends RecyclerView.ViewHolder {
         ImageView castImage;
-        TextView castTitle;
+        TextView castTitle,castCharacter;
 
         public CastHolder(View itemView) {
             super(itemView);
             castImage = itemView.findViewById(R.id.dtlCastIV);
             castTitle = itemView.findViewById(R.id.dtlCastTV);
+            castCharacter = itemView.findViewById(R.id.dtlCastCharacterTV);
         }
     }
 }

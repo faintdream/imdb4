@@ -22,6 +22,7 @@ public class MovieDetailsModel {
     private String mTrailerName;
     private String mCastImage;
     private String mCastTitle;
+    private String mCastCharacter;
     private String mCrewImage;
     private String mCrewTitle;
     private String mVoteCount;
@@ -39,12 +40,13 @@ public class MovieDetailsModel {
 
 
 
-    public MovieDetailsModel(String dummy1,String mCastImage, String mCastTitle) {
+    public MovieDetailsModel(String dummy1,String mCastImage, String mCastTitle, String mCastCharacter) {
         this.mCastImage = mCastImage;
         this.mCastTitle = mCastTitle;
+        this.mCastCharacter=mCastCharacter;
     }
 
-    public MovieDetailsModel(String dummy2,String dummy1,String mCrewImage, String mCrewTitle) {
+    public MovieDetailsModel(String dummy3, String dummy2,String dummy1,String mCrewImage, String mCrewTitle) {
         this.mCrewImage = mCrewImage;
         this.mCrewTitle = mCrewTitle;
     }
@@ -57,6 +59,10 @@ public class MovieDetailsModel {
 
     public String getmCastTitle() {
         return mCastTitle;
+    }
+
+    public String getmCastCharacter(){
+        return mCastCharacter;
     }
 
     public String getmCrewTitle() {

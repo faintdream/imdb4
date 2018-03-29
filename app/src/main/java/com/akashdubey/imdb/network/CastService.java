@@ -43,6 +43,7 @@ public class CastService {
 
     private static final String CAST="cast";
     private static final String NAME="name";
+    private static final String CHARACTER="character";
     private static final String PROFILE="profile_path";
 
     OkHttpClient okHttpClient=new OkHttpClient();
@@ -73,7 +74,8 @@ public class CastService {
                         imgUrl="http://image.tmdb.org/t/p/w45"+relativePath;
                         castModelList.add(new MovieDetailsModel("",
                                 imgUrl,
-                                jsonObject2.getString(NAME)
+                                jsonObject2.getString(NAME),
+                                jsonObject2.getString(CHARACTER)
                                 ));
                     }
                     detailsScreen.runOnUiThread(new Runnable() {

@@ -70,6 +70,7 @@ public class CrewService {
                         crewModelList.add(new MovieDetailsModel(
                                 "",
                                 "",
+                                "",
                                 imgUrl,
                                 jsonObject2.getString(NAME)
                         ));
