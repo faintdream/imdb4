@@ -51,7 +51,7 @@ public class MyWebService {
                     "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=8496be0b2149805afa458ab8ec27560c";
 
     public static final String URL_RATE_MOVIE_P1 =
-            "http://api.themoviedb.org/3/movie/" ;
+            "http://api.themoviedb.org/3/movie" ;
 
     public static final String URL_RATE_MOVIE_P2=
             "/rating?api_key=8496be0b2149805afa458ab8ec275&guest_session_id=";
@@ -344,6 +344,10 @@ public class MyWebService {
                 }
             }
         });
+
+    }
+
+    public void getGuestSessionRatings(){
 
     }
 
