@@ -100,7 +100,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                 movieRank.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        String url=URL_RATE_MOVIE_P1+movieId+URL_RATE_MOVIE_P2+guestSessionId;
+                        String movieId=movieModel.getmId();
+                        final String url=URL_RATE_MOVIE_P1+movieId+URL_RATE_MOVIE_P2+guestSessionId;
                         MediaType mediaType= MediaType.parse("application/json; charset=utf-8");
                         Map<String,Float> params= new HashMap<>();
                         params.put("value",v);
@@ -119,6 +120,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                     @Override
                                     public void run() {
                                         Toast.makeText(holder.itemView.getContext(), "Try Later", Toast.LENGTH_SHORT).show();
+                                        Log.i("LEGO","BAD User Rating URL : "+ url);
                                     }
                                 });
 
@@ -130,6 +132,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                     @Override
                                     public void run() {
                                         Toast.makeText(holder.itemView.getContext(), "Success", Toast.LENGTH_SHORT).show();
+                                        Log.i("LEGO","GOOD User Rating URL : "+ url);
                                     }
                                 });
                                 String myResponse=response.body().string().toString();
