@@ -83,7 +83,7 @@ public class MovieDetailsService {
                     jsonObject = new JSONObject(myResponse);
                     dynamicImageURL = jsonObject.getString(MOVIE_IMAGE);
                     imageBaseUrl =
-                            "http://image.tmdb.org/t/p/w500/" + dynamicImageURL;
+                            "http://image.tmdb.org/t/p/w92/" + dynamicImageURL;
                     movieDetailsModelList.add(new MovieDetailsModel(
                                     imageBaseUrl,
                                     jsonObject.getString(TITLE),

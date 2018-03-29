@@ -53,10 +53,9 @@ import static com.akashdubey.imdb.network.MyWebService.guestSessionId;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
     private List<MovieModel> movieAdapterItem;
-    WebList webList=new WebList();
+    WebList webList = new WebList();
 
     public MovieAdapter(List<MovieModel> movieModelList) {
-
         this.movieAdapterItem = movieModelList;
     }
 
@@ -89,26 +88,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             public void onClick(View view) {
                 final Dialog showMovieRank;
                 RatingBar movieRank;
-                Toast.makeText(holder.itemView.getContext(), "You clicked on : "+movieModel.getmId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(holder.itemView.getContext(), "You clicked on : " + movieModel.getmId(), Toast.LENGTH_SHORT).show();
                 myWebService = new MyWebService();
-                Log.i("LEGO","Guest session ID: "+guestSessionId);
-                showMovieRank= new Dialog(holder.itemView.getContext());
+                Log.i("LEGO", "Guest session ID: " + guestSessionId);
+                showMovieRank = new Dialog(holder.itemView.getContext());
                 showMovieRank.setTitle(holder.movieTitle.getText().toString());
 
                 showMovieRank.setContentView(R.layout.rating_dialog);
-                movieRank=(RatingBar)showMovieRank.findViewById(R.id.rateMovieRB);
+                movieRank = (RatingBar) showMovieRank.findViewById(R.id.rateMovieRB);
                 movieRank.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        String movieId=movieModel.getmId();
-                        final String url=URL_RATE_MOVIE_P1+movieId+URL_RATE_MOVIE_P2+guestSessionId;
-                        MediaType mediaType= MediaType.parse("application/json; charset=utf-8");
-                        Map<String,Float> params= new HashMap<>();
-                        params.put("value",v);
-                        JSONObject jsonObject= new JSONObject(params);
-                        OkHttpClient okHttpClient=new OkHttpClient();
-                        RequestBody body=RequestBody.create(mediaType,params.toString());
-                        Request request=new Request.Builder()
+                        String movieId = movieModel.getmId();
+                        final String url = URL_RATE_MOVIE_P1 + movieId + URL_RATE_MOVIE_P2 + guestSessionId;
+                        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+                        Map<String, Float> params = new HashMap<>();
+                        params.put("value", v);
+                        JSONObject jsonObject = new JSONObject(params);
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        RequestBody body = RequestBody.create(mediaType, params.toString());
+                        Request request = new Request.Builder()
                                 .url(url)
                                 .post(body)
                                 .addHeader("content-type", "application/json; charset=utf-8")
@@ -120,7 +119,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                     @Override
                                     public void run() {
                                         Toast.makeText(holder.itemView.getContext(), "Try Later", Toast.LENGTH_SHORT).show();
-                                        Log.i("LEGO","BAD User Rating URL : "+ url);
+                                        Log.i("LEGO", "BAD User Rating URL : " + url);
                                     }
                                 });
 
@@ -132,25 +131,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                     @Override
                                     public void run() {
                                         Toast.makeText(holder.itemView.getContext(), "Success", Toast.LENGTH_SHORT).show();
-                                        Log.i("LEGO","GOOD User Rating URL : "+ url);
+                                        Log.i("LEGO", "GOOD User Rating URL : " + url);
                                     }
                                 });
-                                String myResponse=response.body().string().toString();
+                                String myResponse = response.body().string().toString();
                                 try {
-                                    JSONObject jsonObject1= new JSONObject(myResponse);
+                                    JSONObject jsonObject1 = new JSONObject(myResponse);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
                         ratingBar.setRating(v);
-                        Log.i("LEGO","Rating : "+v);
+                        Log.i("LEGO", "Rating : " + v);
                         showMovieRank.cancel();
                     }
                 });
                 showMovieRank.show();
-
-
 
 
             }
@@ -165,7 +162,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
     public class MyHolder extends RecyclerView.ViewHolder {
         RatingBar ratings;
-        ImageView movieImage,giveRating;
+        ImageView movieImage, giveRating;
         TextView movieTitle, releaseDate, popularity, votesCount;
 
         public MyHolder(View itemView) {
@@ -175,7 +172,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             releaseDate = itemView.findViewById(R.id.releasedateTV);
             votesCount = itemView.findViewById(R.id.votesTV);
             ratings = itemView.findViewById(R.id.ratingsRB);
-            giveRating=itemView.findViewById(R.id.starIconIV);
+            giveRating = itemView.findViewById(R.id.starIconIV);
         }
 
 
