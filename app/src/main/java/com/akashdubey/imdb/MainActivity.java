@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         myWebService = new MyWebService();
         if (runOnce==false) {
             myWebService.getMostPopularMovies();
+            myWebService.getGuestSessionID();
             runOnce=true;
         }
 

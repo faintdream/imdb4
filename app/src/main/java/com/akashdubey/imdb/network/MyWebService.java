@@ -29,6 +29,7 @@ import okhttp3.Response;
 import static com.akashdubey.imdb.WebList.movieAdapter;
 import static com.akashdubey.imdb.WebList.recyclerView;
 import static com.akashdubey.imdb.model.MovieModel.movieModelList;
+import static com.akashdubey.imdb.network.MovieDetailsService.movieId;
 //import static com.akashdubey.imdb.model.MovieModel;
 
 /**
@@ -48,6 +49,12 @@ public class MyWebService {
             "http://api.themoviedb.org/3/movie/top_rated?api_key=8496be0b2149805afa458ab8ec27560c";
     public static final String URL_GUEST_SESSION_GENERATOR =
                     "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=8496be0b2149805afa458ab8ec27560c";
+
+    public static final String URL_RATE_MOVIE_P1 =
+            "http://api.themoviedb.org/3/movie/" ;
+
+    public static final String URL_RATE_MOVIE_P2=
+            "/rating?api_key=8496be0b2149805afa458ab8ec275&guest_session_id=";
 
     public static final String VOTE_COUNT = "vote_count";
     public static final String VOTE_AVERAGE = "vote_average";
@@ -338,6 +345,24 @@ public class MyWebService {
             }
         });
 
+    }
+
+    public void setRatingForThisMovie(String movieId){
+        if(!guestSessionId.equals("TBD")){
+            String url=URL_RATE_MOVIE_P1+movieId+URL_RATE_MOVIE_P2+guestSessionId;
+            request=new Request.Builder().url(url).build();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                        String myResponse=response.body().string().toString();
+                }
+            });
+        }
     }
 
     private void publishResult(List<MovieModel> movieModelList) {

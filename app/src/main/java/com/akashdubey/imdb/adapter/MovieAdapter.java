@@ -68,7 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             public void onClick(View view) {
 //                Toast.makeText(holder.itemView.getContext(), "You clicked on : "+movieModel.getmId(), Toast.LENGTH_SHORT).show();
                 myWebService = new MyWebService();
-                myWebService.getGuestSessionID();
+
             }
         });
     }
