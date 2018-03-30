@@ -43,6 +43,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewHolder> {
                     .into(holder.crewImage);
         }
         holder.crewTitle.setText(movieDetailsModel.getmCrewTitle());
+        holder.crewJob.setText(movieDetailsModel.getmCrewJob());
     }
 
     @Override
@@ -52,11 +53,12 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewHolder> {
 
     public class CrewHolder extends RecyclerView.ViewHolder{
         ImageView crewImage;
-        TextView crewTitle;
+        TextView crewTitle,crewJob;
         public CrewHolder(View itemView) {
             super(itemView);
             crewImage=itemView.findViewById(R.id.dtlCrewIV);
             crewTitle=itemView.findViewById(R.id.dtlCrewTV);
+            crewJob=itemView.findViewById(R.id.dtlCrewJobTV);
         }
     }
 }

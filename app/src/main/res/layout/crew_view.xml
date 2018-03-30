@@ -20,6 +20,17 @@
         android:layout_marginRight="5dp"
         android:textAlignment="center" />
 
+    <TextView
+        android:id="@+id/dtlCrewJobTV"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dtlCrewTV"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:textColorLink="@android:color/darker_gray"
+        android:textSize="10sp"
+        android:typeface="monospace" />
     <View
         android:layout_width="1dp"
         android:layout_height="15dp"

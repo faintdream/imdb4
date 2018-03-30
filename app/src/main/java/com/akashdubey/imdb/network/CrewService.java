@@ -40,6 +40,7 @@ public class CrewService {
     private static final String CREW = "crew";
     private static final String NAME = "name";
     private static final String PROFILE = "profile_path";
+    private static final String JOB="job";
 
     OkHttpClient okHttpClient = new OkHttpClient();
     Request request;
@@ -70,7 +71,7 @@ public class CrewService {
                         crewModelList.add(new MovieDetailsModel(
                                 "",
                                 "",
-                                "",
+                                jsonObject2.getString(JOB),
                                 imgUrl,
                                 jsonObject2.getString(NAME)
                         ));
