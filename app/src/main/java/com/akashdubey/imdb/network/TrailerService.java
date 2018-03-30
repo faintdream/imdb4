@@ -26,6 +26,8 @@ import static com.akashdubey.imdb.network.MovieDetailsService.movieId;
 
 /**
  * this class handles webservice calls for fetching trailer details
+ * use of TRAILER_KEY -> https://www.youtube.com/watch?v=<TRAILER_KEY>
+ *     for reference :https://www.themoviedb.org/talk/5451ec02c3a3680245005e3c
  */
 
 public class TrailerService {
