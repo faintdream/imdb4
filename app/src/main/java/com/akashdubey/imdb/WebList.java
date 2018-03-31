@@ -56,8 +56,12 @@ public class WebList extends MainActivity {
         String type="";
         try{
             type = getIntent().getExtras().getString("type");
+
         }catch (RuntimeException e){
             e.printStackTrace();
+//            if (type==null){
+                myWebService.getMostPopularMovies();
+//            }
         }
         if (type.isEmpty()) {
             type="xxx";
