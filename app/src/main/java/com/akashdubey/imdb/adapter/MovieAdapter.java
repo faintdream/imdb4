@@ -32,7 +32,10 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -106,12 +109,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                         params.put("value", v);
                         JSONObject jsonObject = new JSONObject(params);
                         OkHttpClient okHttpClient = new OkHttpClient();
-                        RequestBody body = RequestBody.create(mediaType, params.toString());
+//                        RequestBody body = RequestBody.create(mediaType, params.toString());
+                        RequestBody body = new FormBody.Builder()
+                                .add("value", "9")
+                                .build();
                         Request request = new Request.Builder()
                                 .url(url)
                                 .post(body)
-                                .addHeader("content-type", "application/json; charset=utf-8")
+                                .addHeader("Content-Type", "application/json;charset=utf-8")
                                 .build();
+
                         okHttpClient.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
@@ -127,6 +134,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
+
+                                Headers responseHeaders = response.headers();
+                                for (int i = 0; i < responseHeaders.size(); i++) {
+                                    Log.i("LEGO", "Header: " + responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                                }
+                                Log.i("LEGO", "Response body: " + response.body().string());
+                                Log.i("LEGO", "Message: " + response.message());
+
                                 webList.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -134,12 +149,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                         Log.i("LEGO", "GOOD User Rating URL : " + url);
                                     }
                                 });
-                                String myResponse = response.body().string().toString();
-                                try {
-                                    JSONObject jsonObject1 = new JSONObject(myResponse);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+
                             }
                         });
                         ratingBar.setRating(v);
