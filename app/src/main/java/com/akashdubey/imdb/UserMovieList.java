@@ -43,7 +43,8 @@ public class UserMovieList extends MainActivity {
         String status = getIntent().getExtras().getString("refresh");
 
         if (status.equals("yes") && userMovieListcursor != null) {
-            Toast.makeText(this, "Count: " + userMovieListcursor.getCount(), Toast.LENGTH_SHORT).show();
+            publishResultUserListRefresh(userMovieListcursor);
+//            Toast.makeText(this, "Count: " + userMovieListcursor.getCount(), Toast.LENGTH_SHORT).show();
         } else {
 
 
@@ -91,9 +92,15 @@ public class UserMovieList extends MainActivity {
     private void publishResultUserList(Cursor cursor) {
         UserMovieListAdapter userMovieListAdapter = new UserMovieListAdapter(cursor);
         umlRV.setLayoutManager(new LinearLayoutManager(mainActivity));
-        userMovieListAdapter.notifyDataSetChanged();
+//        userMovieListAdapter.notifyDataSetChanged();
         umlRV.setAdapter(userMovieListAdapter);
     }
 
+    private void publishResultUserListRefresh(Cursor cursor) {
+        UserMovieListAdapter userMovieListAdapter = new UserMovieListAdapter(cursor);
+        umlRV.setLayoutManager(new LinearLayoutManager(mainActivity));
+        userMovieListAdapter.notifyDataSetChanged();
+        umlRV.setAdapter(userMovieListAdapter);
+    }
 
 }

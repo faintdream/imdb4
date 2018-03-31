@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         if(refreshStatus==false){
             item.setEnabled(false);
         }
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -74,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.itemFavourite:
@@ -90,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.itemWatchlist:
                 Toast.makeText(this, "Watch bucket list", Toast.LENGTH_SHORT).show();
+                refreshStatus=true;
                 intent = new Intent(MainActivity.this, UserMovieList.class);
                 bundle = new Bundle();
                 bundle.putString("search", "watchlater");
