@@ -123,7 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.itemLatestMovies:
-                Toast.makeText(this, "Latest Movies not functional", Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainActivity.this, WebList.class);
+                bundle = new Bundle();
+                bundle.putString("type", "latest");
+                intent.putExtras(bundle);
+                startActivity(intent);
+//                Toast.makeText(this, "Latest Movies not functional", Toast.LENGTH_SHORT).show();
 //                myWebService.getLatestMovies();
                 break;
 

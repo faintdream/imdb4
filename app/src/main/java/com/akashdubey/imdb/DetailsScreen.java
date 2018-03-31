@@ -61,7 +61,6 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
         movieIdListener.setMovieId(movieId);
         MovieDetailsService movieDetailsService = new MovieDetailsService();
         movieDetailsService.getMovieDetail();
-
         PosterService posterService = new PosterService();
         posterService.getPoster();
 

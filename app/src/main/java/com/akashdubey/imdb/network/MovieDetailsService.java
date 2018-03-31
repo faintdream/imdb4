@@ -82,6 +82,9 @@ public class MovieDetailsService {
                 try {
                     jsonObject = new JSONObject(myResponse);
                     dynamicImageURL = jsonObject.getString(MOVIE_IMAGE);
+//                    note : 1. getLatestMOvies method will fail to find any images for poster, becaus ethat field is marked
+//                    "null" on json retrieved from from the tmdb url
+//                     sample: http://api.themoviedb.org/3/movie/515323?api_key=8496be0b2149805afa458ab8ec27560c
                     imageBaseUrl =
                             "http://image.tmdb.org/t/p/w92/" + dynamicImageURL;
                     movieDetailsModelList.add(new MovieDetailsModel(

@@ -192,36 +192,31 @@ public class MyWebService {
                 String myResponse = response.body().string().toString();
                 try {
                     jsonObject = new JSONObject(myResponse);
-//                    jsonArray = jsonObject.getJSONArray("adult");
-                    for (int i = 0; i < jsonObject.length(); i++) {
+                    String imgBaseUrl = "https://image.tmdb.org/t/p/w185" + jsonObject.getString(MOVIE_IMAGE);
+                    movieModelList.add(new MovieModel(
+                            jsonObject.getString(MOVIE_TITLE),
+                            jsonObject.getString(RELEASE_DATE),
+                            jsonObject.getString(POPULARITY),
+                            jsonObject.getString(VOTE_COUNT),
+                            imgBaseUrl,
+                            jsonObject.getString(VOTE_AVERAGE),
+                            jsonObject.getString(MOVIE_ID))
 
-//                        jsonObject = jsonArray.getJSONObject(i);
-                        String imgBaseUrl = "https://image.tmdb.org/t/p/w185" + jsonObject.getString(MOVIE_IMAGE);
-                        movieModelList.add(new MovieModel(
-                                        jsonObject.getString(MOVIE_TITLE),
-                                        jsonObject.getString(RELEASE_DATE),
-                                        jsonObject.getString(POPULARITY),
-                                        jsonObject.getString(VOTE_COUNT),
-                                        imgBaseUrl,
-                                        jsonObject.getString(VOTE_AVERAGE),
-                                        jsonObject.getString(MOVIE_ID)
-                                )
-                        );
-                    }
-                    MainActivity mainActivity = new MainActivity();
-                    mainActivity.runOnUiThread(new Runnable() {
+                    );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+//                MainActivity mainActivity = new MainActivity();
+                    webList.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             publishResult(movieModelList);
                         }
                     });
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
-            }
         });
-
     }
 
     public void getNowPlayingMovies() {

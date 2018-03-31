@@ -108,24 +108,17 @@ public class UserMovieList extends MainActivity {
 
                 }
 
-//                if (userMovieListcursor.getCount() < 1) {
-//                    Toast.makeText(this, "Try adding some movies ", Toast.LENGTH_LONG).show();
-//                } else {
-//                    publishResultUserList(userMovieListcursor);
-
 
                 }
 
             }
         }
 
-//    }
 
 
     private void publishResultUserList(Cursor cursor) {
         UserMovieListAdapter userMovieListAdapter = new UserMovieListAdapter(cursor);
         umlRV.setLayoutManager(new LinearLayoutManager(mainActivity));
-//        userMovieListAdapter.notifyDataSetChanged();
         umlRV.setAdapter(userMovieListAdapter);
     }
 
