@@ -43,7 +43,9 @@ public class UserMovieList extends MainActivity {
 
         if (status.equals("yes") && getUserMovieListcursorRefresh != null) {
             publishResultUserListRefresh(getUserMovieListcursorRefresh);
-        } else {
+        }
+
+        else {
             String category = getIntent().getExtras().getString("search");
             String[] args = {"yes"};
             dbHelper.openConnection();
@@ -57,7 +59,12 @@ public class UserMovieList extends MainActivity {
                                 new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
                                         VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_FAVOURITE + "=?"
                                 , args, null, null, null);
-                        publishResultUserList(userMovieListcursorFavourite);
+                            if(userMovieListcursorFavourite.getCount()>0) {
+                                publishResultUserList(userMovieListcursorFavourite);
+                            }else{
+                                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
+                            }
                         }else{
                             publishResultUserList(userMovieListcursorFavourite);
                             getUserMovieListcursorRefresh=sqLiteDatabase.query(TABLE_NAME,
@@ -68,10 +75,24 @@ public class UserMovieList extends MainActivity {
 
                         break;
                     case "watchlater":
-                        userMovieListcursorWatchLater = sqLiteDatabase.query(TABLE_NAME,
-                                new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
-                                        VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_WATCHLIST + "=?"
-                                , args, null, null, null);
+                        if(userMovieListcursorWatchLater==null){
+                            userMovieListcursorWatchLater = sqLiteDatabase.query(TABLE_NAME,
+                                    new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
+                                            VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_WATCHLIST + "=?"
+                                    , args, null, null, null);
+                            if(userMovieListcursorWatchLater.getCount()>0) {
+                                publishResultUserList(userMovieListcursorWatchLater);
+                            }else{
+                                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
+                            }
+                        }else {
+                            publishResultUserList(userMovieListcursorWatchLater);
+                            getUserMovieListcursorRefresh = sqLiteDatabase.query(TABLE_NAME,
+                                    new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
+                                            VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_WATCHLIST + "=?"
+                                    , args, null, null, null);
+                        }
                         break;
 
                     case "refresh":
