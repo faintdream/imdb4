@@ -27,6 +27,7 @@ import static com.akashdubey.imdb.network.MovieDetailsService.movieId;
 
 /**
  * Created by homepc on 13-03-2018.
+ * This class handles display of  particular Movie like movie image, title etc.
  */
 
 public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.MovieDetailHolder> {
@@ -49,15 +50,18 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
 
     @Override
     public void onBindViewHolder(final MovieDetailHolder holder, final int position) {
-
+//       collecting pointer to currently displayed item in recycler view
         final MovieDetailsModel movieDetailsModel = movieDetailAdapterList.get(position);
         String movieTitle = movieDetailsModel.getmTitle().toString();
         Integer length;
+
+        //we use length variable to set total characters to be show for movie summary
         if (movieTitle.length() > 100) {
             length = 100;
         } else {
             length = 50;
         }
+        //here we use glide library to lazy load the images , so that apllication performance is good
         Glide.with(holder.movieImage.getContext()).load(movieDetailsModel.getmMovieImage()).into(holder.movieImage);
         holder.movieTitle.setText(movieDetailsModel.getmTitle());
         holder.rating.setRating(Float.parseFloat(movieDetailsModel.getmVoteCount()));
@@ -69,10 +73,13 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
         holder.movieBudget.setText("Budget: " + movieDetailsModel.getmBudget());
         holder.movieRevenue.setText("Revenue: " + movieDetailsModel.getmRevenue());
         holder.movieReleaseStatus.setText(movieDetailsModel.getmReleaseStatus());
+
+        //capturing the user action to mark a movie favourite
         holder.movieFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //setting up cursor to store the record in db
                 dbHelper.openConnection();
                 String[] args = {movieId};
                 cursor = sqLiteDatabase.query(TABLE_NAME,
@@ -95,7 +102,9 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
                     cursor.close();
                     dbHelper.closeConnection();
                 } else {
-
+                    // As we may have a movie which is in DB because it is marked favourite, but
+                    // now user needs to mark it to watch later too & vice versa, this scenario
+                    // is handled here ..
                     while (cursor.moveToNext()) {
                         String tmpWatchList = cursor.getString(cursor.getColumnIndex(IS_WATCHLIST));
                         String tmpfavourite = cursor.getString(cursor.getColumnIndex(IS_FAVOURITE));
@@ -112,41 +121,10 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
 
                 }
 
-//                Log.i("LEGO", "onBindViewHolder -> MovieName : " + movieDetailsModel.getmTitle());
-//                Log.i("LEGO", "onBindViewHolder -> MoviePoster : " + movieDetailsModel.getmMovieImage());
-
-//                dbHelper.openConnection();
-//                String[] args = {movieId, "no"};
-//                cursor = sqLiteDatabase.query(TABLE_NAME,
-//                        new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
-//                                VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, ID + "=?" + "AND " + IS_FAVOURITE + "=?"
-//                        , args, null, null, null);
-//                ContentValues cv = new ContentValues();
-//                if (cursor.getCount() < 1) {
-//                    cv.put(ID, movieId);
-//                    cv.put(TITLE, movieDetailsModel.getmTitle());
-//                    cv.put(RELEASE_DATE, movieDetailsModel.getmReleaseDate());
-//                    cv.put(POSTER_PATH, movieDetailsModel.getmMovieImage());
-//                    cv.put(POPULARITY, movieDetailsModel.getmVoteCount());
-//                    cv.put(VOTE_AVERAGE, movieDetailsModel.getmVoteAverage());
-//                    cv.put(VOTE_COUNT, movieDetailsModel.getmVoteCount());
-//                    cv.put(IS_FAVOURITE, "yes");
-//                    cv.put(IS_WATCHLIST, "no");
-//                    sqLiteDatabase.insert(TABLE_NAME, null, cv);
-//                    holder.movieFavourite.setImageResource(R.drawable.favorite_enable);
-////                    cursor.close();
-//                    dbHelper.closeConnection();
-//                } else {
-//
-//                    Toast.makeText(holder.movieFavourite.getContext(),
-//                            "It is already in favourite list", Toast.LENGTH_SHORT).show();
-//
-//                }
-//
-//
             }
         });
 
+        // capturing the user action for watch later
         holder.movieWatchLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,12 +153,10 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
                     cursor.close();
                     dbHelper.closeConnection();
                 } else {
-//                    if (cursor.getString(cursor.getColumnIndexOrThrow(IS_FAVOURITE)).equals("yes") && cursor.getString(cursor.getColumnIndexOrThrow(IS_WATCHLIST))) {
-
                     while (cursor.moveToNext()) {
                         String tmpWatchList = cursor.getString(cursor.getColumnIndex(IS_WATCHLIST));
-                        String tmpfavourite = cursor.getString(cursor.getColumnIndex(IS_FAVOURITE)).toString();
-                        if (tmpfavourite.equals("yes") && tmpWatchList.equals("no")) {
+                        String tmpFavourite = cursor.getString(cursor.getColumnIndex(IS_FAVOURITE)).toString();
+                        if (tmpFavourite.equals("yes") && tmpWatchList.equals("no")) {
                             String[] args2 = {"no", movieId};
                             cv.put(IS_WATCHLIST, "yes");
                             sqLiteDatabase.update(TABLE_NAME, cv, IS_WATCHLIST + "=?" + " AND " + ID + "=?", args2);
@@ -201,7 +177,6 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
 
     @Override
     public int getItemCount() {
-
         return movieDetailAdapterList.size();
     }
 

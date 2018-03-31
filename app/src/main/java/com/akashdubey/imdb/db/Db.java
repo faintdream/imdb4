@@ -14,6 +14,7 @@ import static com.akashdubey.imdb.db.Constants.*;
 
 /**
  * Created by homepc on 20-03-2018.
+ * This class handles db creation and other db related operations
  */
 
 public class Db extends SQLiteOpenHelper{
@@ -37,6 +38,7 @@ public class Db extends SQLiteOpenHelper{
         this.context=context;
     }
 
+    //creates DB
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
@@ -51,6 +53,7 @@ public class Db extends SQLiteOpenHelper{
 
     }
 
+    //upgrades db, basically drops it and calls onCreate
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         try {

@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by homepc on 13-03-2018.
+ * This class displays Trailer text in horizontal scrolling
  */
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerHolder> {

@@ -28,6 +28,7 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
     String movieId;
 
 
+    //clearing lists when activity goes onPause
     @Override
     protected void onPause() {
         super.onPause();
@@ -38,6 +39,7 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
         MovieDetailsModel.crewModelList.clear();
     }
 
+    //clearing lists on back button press
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -57,10 +59,15 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
         trailerRV = findViewById(R.id.trailerRV);
         castRV = findViewById(R.id.dtlCastRV);
         crewRV = findViewById(R.id.crewRV);
+
+        //storing the movieId from bundle to variable
+
         movieId = getIntent().getExtras().getString("movieId");
         movieIdListener.setMovieId(movieId);
+
         MovieDetailsService movieDetailsService = new MovieDetailsService();
         movieDetailsService.getMovieDetail();
+
         PosterService posterService = new PosterService();
         posterService.getPoster();
 

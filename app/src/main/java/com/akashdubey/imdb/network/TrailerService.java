@@ -1,8 +1,6 @@
 package com.akashdubey.imdb.network;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-
 import com.akashdubey.imdb.DetailsScreen;
 import com.akashdubey.imdb.adapter.TrailerAdapter;
 import com.akashdubey.imdb.model.MovieDetailsModel;
@@ -34,6 +32,8 @@ public class TrailerService {
     DetailsScreen detailsScreen = new DetailsScreen();
     TrailerAdapter trailerAdapter;
 
+
+    //declaring constants to store matching fields from corresponding json
     private static final String RESULT = "results";
     private static final String TRAILER_KEY = "key";
     private static final String TRAILER_NAME = "name";
@@ -47,6 +47,8 @@ public class TrailerService {
     JSONObject jsonObject1, jsonObject2;
     JSONArray jsonArray;
 
+
+    //method is used to fetch trailer details from tmdb
     public void getTrailer() {
         String url = trailerUrl;
         request = new Request.Builder().url(url).build();
@@ -90,6 +92,8 @@ public class TrailerService {
 
     }
 
+
+    //method is used to udpate recyclerview for trailer based on list passed to it.
     public void PublishResultTrailer(List<MovieDetailsModel> trailerModelList) {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(detailsScreen, LinearLayoutManager.HORIZONTAL, false);

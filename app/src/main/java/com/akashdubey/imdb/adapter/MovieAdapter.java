@@ -61,6 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     public MovieAdapter(List<MovieModel> movieModelList) {
         this.movieAdapterItem = movieModelList;
     }
+
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -108,27 +109,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                         final String url = URL_RATE_MOVIE_P1 + movieId + URL_RATE_MOVIE_P2 + guestSessionId;
                         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
                         Map<String, Float> params = new HashMap<>();
-                        params.put("value", v*2);
+
+                        //this is the rating we are going to pass to tmdb
+                        params.put("value", v * 2);
                         JSONObject jsonObject = new JSONObject(params);
                         OkHttpClient okHttpClient = new OkHttpClient();
-//                        RequestBody body = RequestBody.create(mediaType, params.toString());
+
+                        //setting json post payload using FormBody.Builder
                         RequestBody body = new FormBody.Builder()
-                                .add("value",params.get("value").toString())
+                                .add("value", params.get("value").toString())
                                 .build();
                         Request request = new Request.Builder()
                                 .url(url)
                                 .post(body)
                                 .addHeader("Content-Type", "application/json;charset=utf-8")
                                 .build();
-
+                        //putting the networkcall to background using callback method of okhttp3 library
                         okHttpClient.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 webList.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(holder.itemView.getContext(), "Try Later", Toast.LENGTH_SHORT).show();
-                                        Log.i("LEGO", "BAD User Rating URL : " + url);
+
+                                        Log.i("LEGO", "BAD Response on Rating URL : " + url);
                                     }
                                 });
 
@@ -137,6 +141,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
 
+                                //print the http header response , this is just to
+                                //quickly validate the result :-)
                                 Headers responseHeaders = response.headers();
                                 for (int i = 0; i < responseHeaders.size(); i++) {
                                     Log.i("LEGO", "Header: " + responseHeaders.name(i) + ": " + responseHeaders.value(i));
@@ -144,6 +150,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                                 Log.i("LEGO", "Response body: " + response.body().string());
                                 Log.i("LEGO", "Message: " + response.message());
 
+                                //since things went well, we show a Toast to user
                                 webList.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -160,7 +167,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                     }
                 });
                 showMovieRank.show();
-
 
             }
         });
@@ -190,6 +196,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
     }
 
+    //this method is used to move from current activity to Movie Details screen
     public void jumpScreen(View view, String movieId) {
         Intent intent = new Intent(view.getContext(), DetailsScreen.class);
         Bundle bundle = new Bundle();

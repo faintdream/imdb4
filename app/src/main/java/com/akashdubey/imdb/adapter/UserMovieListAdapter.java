@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import static com.akashdubey.imdb.db.Constants.*;
 
 /**
- * This class uses sqlite db to populate the User chosen Movie list in REcyclerview
+ * This class uses sqlite db to populate the User chosen Movie list in Recyclerview
  */
 
 public class UserMovieListAdapter extends RecyclerView.Adapter<UserMovieListAdapter.MyHolder>  {
@@ -35,8 +35,11 @@ public class UserMovieListAdapter extends RecyclerView.Adapter<UserMovieListAdap
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
+            // getting pointer to current position and moving  there
             umlCursor.moveToPosition(position);
-            Glide.with(holder.movieImage.getContext()).load(umlCursor.getString(umlCursor.getColumnIndex(POSTER_PATH))).into(holder.movieImage);
+            //using glide library to lazy load image
+            Glide.with(holder.movieImage.getContext()).load(umlCursor
+                    .getString(umlCursor.getColumnIndex(POSTER_PATH))).into(holder.movieImage);
             holder.movieTitle.setText(umlCursor.getString(umlCursor.getColumnIndex(TITLE)));
             holder.releaseDate.setText(umlCursor.getString(umlCursor.getColumnIndex(RELEASE_DATE)));
             holder.votesCount.setText(

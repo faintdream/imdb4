@@ -21,13 +21,13 @@ import static com.akashdubey.imdb.db.Constants.refreshStatus;
 import static com.akashdubey.imdb.db.Db.runOnce;
 import static com.akashdubey.imdb.db.DbHelper.dbHelper;
 
+
+// Even thou this class is named MainSctivity it is just a holder for Menus and associated actions
+
 public class MainActivity extends AppCompatActivity {
 
     Intent intent;
     Bundle bundle;
-
-//public static MovieAdapter movieAdapter;
-//public static  MyWebService myWebService ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
+    //disabling refresh menu item on app load
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item=menu.findItem(R.id.itemRefresh);
@@ -65,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.in_app_choices, menu);
-//        return super.onCreateOptionsMenu(menu);
         return true;
     }
 
-
+    //action to be taken on corresponfing item selection,mostly opening anotehr activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("type", "popular");
                 intent.putExtras(bundle);
                 startActivity(intent);
-//                myWebService.getMostPopularMovies();
                 break;
 
 
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("type", "upcoming");
                 intent.putExtras(bundle);
                 startActivity(intent);
-//                myWebService.getUpcomingMovies();
                 break;
 
             case R.id.itemLatestMovies:
@@ -128,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("type", "latest");
                 intent.putExtras(bundle);
                 startActivity(intent);
-//                Toast.makeText(this, "Latest Movies not functional", Toast.LENGTH_SHORT).show();
-//                myWebService.getLatestMovies();
                 break;
 
             case R.id.itemNowPlayingMovies:
@@ -138,17 +134,14 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("type", "playing");
                 intent.putExtras(bundle);
                 startActivity(intent);
-//                Toast.makeText(this, "Now Playing movies", Toast.LENGTH_SHORT).show();
-//                myWebService.getNowPlayingMovies();
                 break;
+
             case R.id.itemTopRatedMovies:
                 intent = new Intent(MainActivity.this, WebList.class);
                 bundle = new Bundle();
                 bundle.putString("type", "toprated");
                 intent.putExtras(bundle);
                 startActivity(intent);
-//                Toast.makeText(this, "Top rated movies", Toast.LENGTH_SHORT).show();
-//                myWebService.getTopRatedMovies();
                 break;
         }
 

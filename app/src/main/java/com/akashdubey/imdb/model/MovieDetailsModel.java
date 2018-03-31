@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class handles mode for detailed Movie list and associated methods
+ * This class handles model for detailed Movie list and associated methods
  */
 
 public class MovieDetailsModel {
@@ -32,6 +32,9 @@ public class MovieDetailsModel {
     private boolean isFavourite,isWatchLater;
     private RatingBar ratings;
 
+
+    //creating a bunch of class type lists , where each will contain corresponding data
+    //as received form web service, these lists are CORE of the APp i would say
     public static List<MovieDetailsModel> movieDetailsModelList = new ArrayList<>();
     public static List<MovieDetailsModel> posterModelList= new ArrayList<>();
     public static List<MovieDetailsModel> trailerModelList=new ArrayList<>();
@@ -39,7 +42,7 @@ public class MovieDetailsModel {
     public static List<MovieDetailsModel>crewModelList=new ArrayList<>();
 
 
-
+    // Here we declare multiple paramerterised constructors to handle each type of data fetch
 
     public MovieDetailsModel(String dummy1,String mCastImage, String mCastTitle, String mCastCharacter) {
         this.mCastImage = mCastImage;
@@ -58,7 +61,7 @@ public class MovieDetailsModel {
         this.mTrailerName = mTrailerName;
     }
 
-
+    // These getters are created to access values set on class members
     public String getmCastTitle() {
         return mCastTitle;
     }

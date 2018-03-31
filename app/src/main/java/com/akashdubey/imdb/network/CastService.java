@@ -24,7 +24,7 @@ import static com.akashdubey.imdb.model.MovieDetailsModel.castModelList;
 import static com.akashdubey.imdb.network.MovieDetailsService.movieId;
 
 /**
- * This class handles fetch movie star cast from webservice
+ * This class fetch movie star cast from tmdb and puts on recycler view
  */
 
 public class CastService {

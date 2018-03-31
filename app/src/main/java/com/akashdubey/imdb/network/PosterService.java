@@ -46,9 +46,10 @@ public class PosterService {
     JSONObject jsonObject1, jsonObject2, jsonObject3;
     JSONArray jsonArray;
 
+    //method is used to fetch posters from tmdb
     public void getPoster() {
         String url = posterUrl;
-//        Log.i("LEGO", url);
+        Log.i("LEGO", url);
         request = new Request.Builder().url(url).build();// building the http url to fetch poster path
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -65,9 +66,8 @@ public class PosterService {
                     jsonArray = jsonObject2.getJSONArray(POSTER);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jsonObject3 = jsonArray.getJSONObject(i);
-//                        Log.i("LEGO", "path:" + jsonObject3.getString(POSTER_PATH).toString());
                         imgBaseUrl = "https://image.tmdb.org/t/p/w45" + jsonObject3.getString(POSTER_PATH);
-//                        Log.i("LEGO", "url:" + imgBaseUrl);
+                        Log.i("LEGO", "url:" + imgBaseUrl);
                         posterModelList.add(new MovieDetailsModel(imgBaseUrl));
                         detailsScreen.runOnUiThread(new Runnable() {
                             @Override
@@ -88,7 +88,7 @@ public class PosterService {
 
     }
 
-
+    //method is used to update recyclerview for posters based on list passed to it.
     public void PublishResultPoster(List<MovieDetailsModel> posterModelList) {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(detailsScreen, LinearLayoutManager.HORIZONTAL, false);

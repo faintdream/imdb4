@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by homepc on 13-03-2018.
+ * This class handles recycler view updates for crew members
  */
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewHolder> {
@@ -35,6 +36,8 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewHolder> {
     @Override
     public void onBindViewHolder(CrewHolder holder, int position) {
         MovieDetailsModel movieDetailsModel=crewAdapterList.get(position);
+
+        //if there is no image fetched, let's replace it by a custom image
         if(movieDetailsModel.getmCrewImage().equals("http://image.tmdb.org/t/p/w45null")){
             holder.crewImage.setImageResource(R.drawable.no_image);
         }else {

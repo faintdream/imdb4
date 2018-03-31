@@ -4,6 +4,9 @@ import android.database.Cursor;
 
 /**
  * Created by homepc on 20-03-2018.
+ *
+ * While the class name is Constants, now it also contains a few variables,
+ * I figured this is the best place to keep them.
  */
 
 public class Constants {
@@ -21,6 +24,8 @@ public class Constants {
     public static final String IS_FAVOURITE="is_favourite";
 
     public static boolean refreshStatus=false;
-    public static Cursor userMovieListcursorFavourite,userMovieListcursorWatchLater,getUserMovieListcursorRefresh;
+    public static Cursor userMovieListcursorFavourite,
+            userMovieListcursorWatchLater,
+            getUserMovieListcursorRefresh;
 
 }

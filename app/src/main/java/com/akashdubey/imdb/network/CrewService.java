@@ -25,6 +25,7 @@ import static com.akashdubey.imdb.network.MovieDetailsService.movieId;
 
 /**
  * Created by homepc on 16-03-2018.
+ * This class fetch crew members from tmdb and puts on recycler view
  */
 
 public class CrewService {

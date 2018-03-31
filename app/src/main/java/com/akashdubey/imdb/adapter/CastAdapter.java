@@ -19,6 +19,7 @@ import static com.akashdubey.imdb.DetailsScreen.castRV;
 
 /**
  * Created by homepc on 13-03-2018.
+ * this class handles recycler view display of movie star cast
  */
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
@@ -49,6 +50,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
                     .into(holder.castImage);
 
         }
+
+        //setting cast title and character
         holder.castTitle.setText(movieDetailsModel.getmCastTitle());
         holder.castCharacter.setText(movieDetailsModel.getmCastCharacter());
 
@@ -56,13 +59,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastHolder> {
 
     @Override
     public int getItemCount() {
-
         return castAdapterList.size();
     }
 
     public class CastHolder extends RecyclerView.ViewHolder {
         ImageView castImage;
-        TextView castTitle,castCharacter;
+        TextView castTitle, castCharacter;
 
         public CastHolder(View itemView) {
             super(itemView);

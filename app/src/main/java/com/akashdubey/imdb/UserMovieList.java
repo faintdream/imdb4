@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import static com.akashdubey.imdb.db.Constants.*;
 
 import com.akashdubey.imdb.adapter.UserMovieListAdapter;
@@ -17,15 +18,13 @@ import static com.akashdubey.imdb.db.DbHelper.dbHelper;
 import static com.akashdubey.imdb.db.DbHelper.sqLiteDatabase;
 
 /**
- * This class handles display of user choice movie data data
+ * This class handles display of user choice movie data
  */
 
 public class UserMovieList extends MainActivity {
     MainActivity mainActivity = new MainActivity();
 
     RecyclerView umlRV;
-//    public static Cursor cursor;
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -39,16 +38,20 @@ public class UserMovieList extends MainActivity {
         setContentView(R.layout.user_movie_list_view);
         umlRV = findViewById(R.id.umlRV);
 
-        String status = getIntent().getExtras().getString("refresh");
 
+        String status = getIntent().getExtras().getString("refresh");
+        //if we received a refresh action and corresponding cursort not empty
+        // display it
         if (status.equals("yes") && getUserMovieListcursorRefresh != null) {
             publishResultUserListRefresh(getUserMovieListcursorRefresh);
-        }
+        } else {
 
-        else {
+            // or check what is passed eother favourite or watch later
             String category = getIntent().getExtras().getString("search");
             String[] args = {"yes"};
             dbHelper.openConnection();
+
+            //hop a step back if category is empty, cheap way thou
             if (category == null) {
                 Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
                 onBackPressed();
@@ -57,20 +60,20 @@ public class UserMovieList extends MainActivity {
             } else {
                 switch (category) {
                     case "favourites":
-                        if(userMovieListcursorFavourite==null){
-                        userMovieListcursorFavourite = sqLiteDatabase.query(TABLE_NAME,
-                                new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
-                                        VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_FAVOURITE + "=?"
-                                , args, null, null, null);
-                            if(userMovieListcursorFavourite.getCount()>0) {
+                        if (userMovieListcursorFavourite == null) {
+                            userMovieListcursorFavourite = sqLiteDatabase.query(TABLE_NAME,
+                                    new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
+                                            VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_FAVOURITE + "=?"
+                                    , args, null, null, null);
+                            if (userMovieListcursorFavourite.getCount() > 0) {
                                 publishResultUserList(userMovieListcursorFavourite);
-                            }else{
+                            } else {
                                 Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
-                        }else{
+                        } else {
                             publishResultUserList(userMovieListcursorFavourite);
-                            getUserMovieListcursorRefresh=sqLiteDatabase.query(TABLE_NAME,
+                            getUserMovieListcursorRefresh = sqLiteDatabase.query(TABLE_NAME,
                                     new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
                                             VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_FAVOURITE + "=?"
                                     , args, null, null, null);
@@ -78,18 +81,18 @@ public class UserMovieList extends MainActivity {
 
                         break;
                     case "watchlater":
-                        if(userMovieListcursorWatchLater==null){
+                        if (userMovieListcursorWatchLater == null) {
                             userMovieListcursorWatchLater = sqLiteDatabase.query(TABLE_NAME,
                                     new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
                                             VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_WATCHLIST + "=?"
                                     , args, null, null, null);
-                            if(userMovieListcursorWatchLater.getCount()>0) {
+                            if (userMovieListcursorWatchLater.getCount() > 0) {
                                 publishResultUserList(userMovieListcursorWatchLater);
-                            }else{
+                            } else {
                                 Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
-                        }else {
+                        } else {
                             publishResultUserList(userMovieListcursorWatchLater);
                             getUserMovieListcursorRefresh = sqLiteDatabase.query(TABLE_NAME,
                                     new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
@@ -109,11 +112,10 @@ public class UserMovieList extends MainActivity {
                 }
 
 
-                }
-
             }
-        }
 
+        }
+    }
 
 
     private void publishResultUserList(Cursor cursor) {

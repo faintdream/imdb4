@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by homepc on 07-03-2018.
+ *
+ * this class defines Model structure for movie list we will get from tmdb
  */
 
 public class MovieModel {
@@ -16,6 +18,9 @@ public class MovieModel {
         return mVoteAverage;
     }
 
+
+    // constructor created to pass web svc data to our lists.
+
     public MovieModel(String mTitle, String mReleaseDate, String mPopularity, String mVotesCount, String mMovieImage, String mVoteAverage, String mId) {
         this.mTitle = mTitle;
         this.mReleaseDate = mReleaseDate;
@@ -24,13 +29,11 @@ public class MovieModel {
         this.mMovieImage = mMovieImage;
         this.mVoteAverage=mVoteAverage;
         this.mId=mId;
-
     }
-
-
-
+    //our class type list
     public  static List<MovieModel> movieModelList = new ArrayList<>();
 
+    //our getters
     public   String getmTitle() {
         return mTitle;
     }

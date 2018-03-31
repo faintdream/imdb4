@@ -25,18 +25,16 @@ import static com.akashdubey.imdb.model.MovieDetailsModel.movieDetailsModelList;
 
 /**
  * Created by homepc on 13-03-2018.
+ *
+ * This class fetch movie details from tmdb and puts on recycler view
  */
 
 public class MovieDetailsService {
 
-//    private String mTitle, mReleaseDate,
-//            mPosterImage, mVoteAverage, mOverview, mBudget, mRevenue,
-//            mTrailerImage, mCastImage, mCrewImage, mVoteCount;
 
     DetailsScreen detailsScreen = new DetailsScreen();
     MovieDetailAdapter movieDetailAdapter;
     MainActivity mainActivity=new MainActivity();
-    private boolean isFavourite, isWatchLater;
     private static final String MOVIE_IMAGE = "poster_path";
     private static final String BUDGET = "budget";
     private static final String REVENUE = "revenue";
@@ -49,6 +47,8 @@ public class MovieDetailsService {
 
 
     public static String movieId = "CRAP_BY_AKASH";
+
+    //several of the tmdb api urls
     private String movieDetailUrl
             = "http://api.themoviedb.org/3/movie/" + movieId + "?api_key=8496be0b2149805afa458ab8ec27560c";
     private String castUrl
@@ -61,12 +61,14 @@ public class MovieDetailsService {
     private String imageBaseUrl =
             "http://image.tmdb.org/t/p/w92/" + dynamicImageURL;
 
+    // using okhttp library from square, it is much easier to se than the one provided along
+    // with android framework
 
     OkHttpClient okHttpClient = new OkHttpClient();
     Request request;
     JSONObject jsonObject;
 
-
+    // method to get movie details
     public void getMovieDetail() {
         String url = movieDetailUrl;
         request = new Request.Builder().url(url).build(); // building the http request okHttp way
@@ -119,7 +121,7 @@ public class MovieDetailsService {
 
     }
 
-
+    // sending our the result to details screen
     public void publishResultMovieDetail(List<MovieDetailsModel> movieDetailsModelList) {
         movieDetailAdapter = new MovieDetailAdapter(movieDetailsModelList);
         movieDetailRV.setLayoutManager(new LinearLayoutManager(mainActivity));
@@ -128,6 +130,7 @@ public class MovieDetailsService {
 
     }
 
+    //this interface is created so that we can bounce/pass movieId on will across all acticities
     public interface MovieIdListener {
         public void setMovieId(String id);
     }

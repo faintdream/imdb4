@@ -28,10 +28,12 @@ import static com.akashdubey.imdb.db.DbHelper.dbHelper;
 import static com.akashdubey.imdb.db.DbHelper.sqLiteDatabase;
 
 /**
- * This class handles display of user choice movie data data
+ * This class handles display of user choice movie data from tmdb.
+ * This is our Main Activity class.
  */
 
 public class WebList extends MainActivity {
+
 
     public static MovieAdapter movieAdapter;
     public static MyWebService myWebService;
@@ -59,9 +61,7 @@ public class WebList extends MainActivity {
 
         }catch (RuntimeException e){
             e.printStackTrace();
-//            if (type==null){
                 myWebService.getMostPopularMovies();
-//            }
         }
         if (type.isEmpty()) {
             type="xxx";
@@ -94,58 +94,3 @@ public class WebList extends MainActivity {
     }
 }
 
-//        if (status.equals("yes") && userMovieListcursor != null) {
-//            Toast.makeText(this, "Count: " + userMovieListcursor.getCount(), Toast.LENGTH_SHORT).show();
-//        } else {
-//
-//
-//            String category = getIntent().getExtras().getString("search");
-//            String[] args = {"yes"};
-//            dbHelper.openConnection();
-//
-//            if (category == null) {
-//                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
-//            } else {
-//                switch (category) {
-//                    case "favourites":
-//                        userMovieListcursor = sqLiteDatabase.query(TABLE_NAME,
-//                                new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
-//                                        VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_FAVOURITE + "=?"
-//                                , args, null, null, null);
-//                        break;
-//                    case "watchlater":
-//                        userMovieListcursor = sqLiteDatabase.query(TABLE_NAME,
-//                                new String[]{ID, TITLE, RELEASE_DATE, POSTER_PATH, POPULARITY, VOTE_AVERAGE,
-//                                        VOTE_COUNT, IS_FAVOURITE, IS_WATCHLIST}, IS_WATCHLIST + "=?"
-//                                , args, null, null, null);
-//                        break;
-//
-//                    default:
-//                        Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
-//                        break;
-//
-//                }
-//
-//                if (userMovieListcursor.getCount() < 1) {
-//                    Toast.makeText(this, "Try adding some movies ", Toast.LENGTH_LONG).show();
-//                } else {
-//                    publishResultUserList(userMovieListcursor);
-//
-//
-//                }
-//
-//            }
-//        }
-//
-//    }
-//
-//
-//    private void publishResultUserList(Cursor cursor) {
-//        UserMovieListAdapter userMovieListAdapter = new UserMovieListAdapter(cursor);
-//        umlRV.setLayoutManager(new LinearLayoutManager(mainActivity));
-//        userMovieListAdapter.notifyDataSetChanged();
-//        umlRV.setAdapter(userMovieListAdapter);
-//    }
-
-
-//}

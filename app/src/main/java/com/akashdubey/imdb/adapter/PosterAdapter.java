@@ -22,25 +22,24 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterHold
     List<MovieDetailsModel> posterAdapterList = new ArrayList<>();
 
     public PosterAdapter(List<MovieDetailsModel> posterModelList) {
-        this.posterAdapterList=posterModelList;
+        this.posterAdapterList = posterModelList;
     }
 
     @Override
-    public PosterHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
-        View view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.poster_view,parent,false);
+    public PosterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.poster_view, parent, false);
 
         return new PosterHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PosterHolder holder, int position) {
-        MovieDetailsModel movieDetailsModel=posterAdapterList.get(position);
-
+        MovieDetailsModel movieDetailsModel = posterAdapterList.get(position);
+        // if no image found , Replace it with our image
         if (movieDetailsModel.getmPosterImage().equals("http://image.tmdb.org/t/p/w45null")) {
             holder.poster.setImageResource(R.drawable.no_image);
-        }else{
+        } else {
             Glide.with(holder.poster.getContext()).load(movieDetailsModel.getmPosterImage()).into(holder.poster);
         }
 
@@ -51,11 +50,12 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterHold
         return posterAdapterList.size();
     }
 
-    public class PosterHolder extends RecyclerView.ViewHolder{
+    public class PosterHolder extends RecyclerView.ViewHolder {
         ImageView poster;
+
         public PosterHolder(View itemView) {
             super(itemView);
-            poster=itemView.findViewById(R.id.dtlPosterIV);
+            poster = itemView.findViewById(R.id.dtlPosterIV);
         }
     }
 }

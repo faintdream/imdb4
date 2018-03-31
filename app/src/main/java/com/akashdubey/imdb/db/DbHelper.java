@@ -9,6 +9,7 @@ import static com.akashdubey.imdb.db.Constants.DB_VERSION;
 
 /**
  * Created by homepc on 20-03-2018.
+ * this is a helper class for DB Operation
  */
 
 public class DbHelper {
@@ -32,6 +33,8 @@ public class DbHelper {
         return dbHelper;
     }
 
+
+    //helps open read/write connection
     public void openConnection() {
         try {
             sqLiteDatabase = db.getWritableDatabase();
@@ -43,6 +46,7 @@ public class DbHelper {
 
     }
 
+    //helps close the connection to db
     public void closeConnection() {
         try{
             if(sqLiteDatabase.isOpen()){
