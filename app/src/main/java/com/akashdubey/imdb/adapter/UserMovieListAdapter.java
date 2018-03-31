@@ -45,6 +45,7 @@ public class UserMovieListAdapter extends RecyclerView.Adapter<UserMovieListAdap
                     umlCursor.getString(umlCursor.getColumnIndex(VOTE_COUNT))+
             " Users.");
             holder.ratings.setRating(Float.parseFloat(umlCursor.getString(umlCursor.getColumnIndex(VOTE_AVERAGE)))/2);
+
     }
 
     @Override
@@ -63,6 +64,7 @@ public class UserMovieListAdapter extends RecyclerView.Adapter<UserMovieListAdap
             releaseDate = itemView.findViewById(R.id.umlReleasedateTV);
             votesCount = itemView.findViewById(R.id.umlVotesTV);
             ratings = itemView.findViewById(R.id.umlRatingsRB);
+
         }
     }
 

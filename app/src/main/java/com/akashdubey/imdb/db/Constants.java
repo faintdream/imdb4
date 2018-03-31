@@ -1,5 +1,7 @@
 package com.akashdubey.imdb.db;
 
+import android.database.Cursor;
+
 /**
  * Created by homepc on 20-03-2018.
  */
@@ -19,4 +21,6 @@ public class Constants {
     public static final String IS_FAVOURITE="is_favourite";
 
     public static boolean refreshStatus=false;
+    public static Cursor userMovieListcursorFavourite,userMovieListcursorWatchLater,getUserMovieListcursorRefresh;
+
 }

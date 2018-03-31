@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     Intent intent;
     Bundle bundle;
-    public static Cursor userMovieListcursor;
+
 //public static MovieAdapter movieAdapter;
 //public static  MyWebService myWebService ;
 

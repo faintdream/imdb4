@@ -16,12 +16,11 @@
             android:id="@+id/umlVotesTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/umlStarIconIV"
-            android:layout_marginLeft="19dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginStart="19dp"
-            android:layout_below="@id/umlTextView2"
-            android:layout_toEndOf="@+id/umlStarIconIV"
-            android:layout_toRightOf="@+id/umlStarIconIV"
+            android:layout_below="@id/umlTextView4"
+            android:layout_toEndOf="@+id/umlPosterIV"
+            android:layout_toRightOf="@+id/umlPosterIV"
             android:text="(0.0/100) voted by 1542, users " />
 
         <ImageView
@@ -63,14 +62,14 @@
             android:layout_toRightOf="@+id/umlPosterIV"
             android:text="movieAdapter @string/app_name" />
 
-        <ImageView
-            android:id="@+id/umlStarIconIV"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_below="@+id/umlTextView4"
-            android:layout_toEndOf="@+id/umlPosterIV"
-            android:layout_toRightOf="@+id/umlPosterIV"
-            app:srcCompat="@drawable/star" />
+        <!--<ImageView-->
+            <!--android:id="@+id/umlStarIconIV"-->
+            <!--android:layout_width="25dp"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:layout_below="@+id/umlTextView4"-->
+            <!--android:layout_toEndOf="@+id/umlPosterIV"-->
+            <!--android:layout_toRightOf="@+id/umlPosterIV"-->
+            <!--app:srcCompat="@drawable/star" />-->
 
         <TextView
             android:id="@+id/umlTextView2"
