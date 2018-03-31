@@ -47,10 +47,10 @@ import static com.akashdubey.imdb.network.MyWebService.URL_RATE_MOVIE_P1;
 import static com.akashdubey.imdb.network.MyWebService.URL_RATE_MOVIE_P2;
 import static com.akashdubey.imdb.network.MyWebService.guestSessionId;
 
-//import static com.akashdubey.imdb.MainActivity.movieAdapter;
-
 /**
  * Created by homepc on 07-03-2018.
+ * This class handles the display of various type of movie listing upcoming,popular, latest etc.
+ * in the recycler view
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
@@ -61,7 +61,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     public MovieAdapter(List<MovieModel> movieModelList) {
         this.movieAdapterItem = movieModelList;
     }
-
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -78,6 +77,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
         holder.releaseDate.setText(movieModel.getmReleaseDate());
         holder.votesCount.setText(movieModel.getmVoteAverage() + "/ 10 voted by " + movieModel.getmVotesCount() + " ");
         holder.ratings.setRating(Float.parseFloat(movieModel.getmVoteAverage().toString()) / 2);
+
+        //on click of a recyclerview item, let's hop to next detailed screen activity
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +87,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             }
         });
 
+        // opens a ratings dialog, based on user feedback dialogbox datais sent
+        // to the tmdb API as guest session
         holder.giveRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +99,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                 Log.i("LEGO", "Guest session ID: " + guestSessionId);
                 showMovieRank = new Dialog(holder.itemView.getContext());
                 showMovieRank.setTitle(holder.movieTitle.getText().toString());
-
                 showMovieRank.setContentView(R.layout.rating_dialog);
                 movieRank = (RatingBar) showMovieRank.findViewById(R.id.rateMovieRB);
                 movieRank.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -106,12 +108,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                         final String url = URL_RATE_MOVIE_P1 + movieId + URL_RATE_MOVIE_P2 + guestSessionId;
                         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
                         Map<String, Float> params = new HashMap<>();
-                        params.put("value", v);
+                        params.put("value", v*2);
                         JSONObject jsonObject = new JSONObject(params);
                         OkHttpClient okHttpClient = new OkHttpClient();
 //                        RequestBody body = RequestBody.create(mediaType, params.toString());
                         RequestBody body = new FormBody.Builder()
-                                .add("value", "9")
+                                .add("value",params.get("value").toString())
                                 .build();
                         Request request = new Request.Builder()
                                 .url(url)
