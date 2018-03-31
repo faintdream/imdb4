@@ -192,10 +192,10 @@ public class MyWebService {
                 String myResponse = response.body().string().toString();
                 try {
                     jsonObject = new JSONObject(myResponse);
-                    jsonArray = jsonObject.getJSONArray("adult");
-                    for (int i = 0; i < jsonArray.length(); i++) {
+//                    jsonArray = jsonObject.getJSONArray("adult");
+                    for (int i = 0; i < jsonObject.length(); i++) {
 
-                        jsonObject = jsonArray.getJSONObject(i);
+//                        jsonObject = jsonArray.getJSONObject(i);
                         String imgBaseUrl = "https://image.tmdb.org/t/p/w185" + jsonObject.getString(MOVIE_IMAGE);
                         movieModelList.add(new MovieModel(
                                         jsonObject.getString(MOVIE_TITLE),

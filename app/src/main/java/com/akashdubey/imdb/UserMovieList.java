@@ -50,7 +50,10 @@ public class UserMovieList extends MainActivity {
             String[] args = {"yes"};
             dbHelper.openConnection();
             if (category == null) {
-                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+
+
             } else {
                 switch (category) {
                     case "favourites":
@@ -62,7 +65,7 @@ public class UserMovieList extends MainActivity {
                             if(userMovieListcursorFavourite.getCount()>0) {
                                 publishResultUserList(userMovieListcursorFavourite);
                             }else{
-                                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
                         }else{
@@ -83,7 +86,7 @@ public class UserMovieList extends MainActivity {
                             if(userMovieListcursorWatchLater.getCount()>0) {
                                 publishResultUserList(userMovieListcursorWatchLater);
                             }else{
-                                Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
                                 onBackPressed();
                             }
                         }else {
@@ -99,7 +102,8 @@ public class UserMovieList extends MainActivity {
                         publishResultUserListRefresh(getUserMovieListcursorRefresh);
                         break;
                     default:
-                        Toast.makeText(this, "Nothing to show", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "No updates", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                         break;
 
                 }
