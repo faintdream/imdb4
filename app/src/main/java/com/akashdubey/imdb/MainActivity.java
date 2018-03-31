@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.akashdubey.imdb.db.Constants;
 import com.akashdubey.imdb.network.MyWebService;
 
 import static com.akashdubey.imdb.WebList.myWebService;
+import static com.akashdubey.imdb.db.Constants.refreshStatus;
 import static com.akashdubey.imdb.db.Db.runOnce;
 import static com.akashdubey.imdb.db.DbHelper.dbHelper;
 
@@ -52,6 +54,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.itemRefresh);
+        if(refreshStatus==false){
+            item.setEnabled(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.in_app_choices, menu);
@@ -67,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId) {
             case R.id.itemFavourite:
                 Toast.makeText(this, "Favourite movies", Toast.LENGTH_SHORT).show();
+                refreshStatus=true;
                 intent = new Intent(MainActivity.this, UserMovieList.class);
                 bundle = new Bundle();
                 bundle.putString("search", "favourites");

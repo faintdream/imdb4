@@ -17,4 +17,6 @@ public class Constants {
     public static final String VOTE_COUNT="vote_count";
     public static final String IS_WATCHLIST="is_watchlist";
     public static final String IS_FAVOURITE="is_favourite";
+
+    public static boolean refreshStatus=false;
 }
