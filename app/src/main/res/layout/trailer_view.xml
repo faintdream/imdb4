@@ -11,6 +11,9 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="casual"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_orange_dark"
         android:textSize="12sp" />
 
     <View
