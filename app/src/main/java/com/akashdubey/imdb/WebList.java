@@ -63,7 +63,7 @@ public class WebList extends MainActivity {
             e.printStackTrace();
                 myWebService.getMostPopularMovies();
         }
-        if (type.isEmpty()) {
+        if (type==null) {
             type="xxx";
         } else {
 
