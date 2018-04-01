@@ -74,7 +74,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@id/dtlArrow2IV"
                     android:layout_toRightOf="@id/dtlArrow2IV"
-                    android:text="Trailers" />
+                    android:text="View Trailers" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/trailerRV"
