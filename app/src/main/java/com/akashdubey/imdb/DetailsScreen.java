@@ -19,6 +19,9 @@ import static com.akashdubey.imdb.network.MovieDetailsService.*;
 /**
  * This class loads the UI for details screen and set the movie id for
  * further processing
+ * as you can see i have put this code in onPostResume because we are also launching
+ * an implicit intent on MovieDetailAdapter, which was causing issues if we keep the code in
+ * onCreate
  */
 
 
@@ -60,8 +63,26 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
         castRV = findViewById(R.id.dtlCastRV);
         crewRV = findViewById(R.id.crewRV);
 
-        //storing the movieId from bundle to variable
 
+
+    }
+
+
+    @Override
+    public void setMovieId(String id) {
+        MovieDetailsService.movieId = id;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        //storing the movieId from bundle to variable
         movieId = getIntent().getExtras().getString("movieId");
         movieIdListener.setMovieId(movieId);
 
@@ -79,17 +100,5 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
 
         CrewService crewService = new CrewService();
         crewService.getCrew();
-    }
-
-
-    @Override
-    public void setMovieId(String id) {
-        MovieDetailsService.movieId = id;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 }
