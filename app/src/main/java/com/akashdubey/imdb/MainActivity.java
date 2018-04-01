@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myWebService = new MyWebService();
         if (runOnce==false) {
-            myWebService.getMostPopularMovies();
+            myWebService.getUpcomingMovies();
             myWebService.getGuestSessionID();
             runOnce=true;
         }
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //action to be taken on corresponfing item selection,mostly opening anotehr activity
+    //action to be taken on corresponding item selection,mostly opening anotehr activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
