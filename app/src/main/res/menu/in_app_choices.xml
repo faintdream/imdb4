@@ -16,7 +16,14 @@
 
     <item
         app:showAsAction="always"
-        android:icon="@drawable/web"
+        android:icon="@drawable/exit"
+        android:id="@+id/itemExit"
+        android:tooltipText="Exit the App"
+        android:title=""/>
+
+    <item
+        app:showAsAction="always"
+        android:icon="@drawable/more"
         android:id="@+id/itemWeb"
         android:title="" >
         <menu>

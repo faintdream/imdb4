@@ -1,7 +1,9 @@
 package com.akashdubey.imdb;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -136,6 +138,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
+
+            case R.id.itemExit:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Exit IMDB App ?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                        dialogInterface.dismiss();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
+
+                break;
             case R.id.itemTopRatedMovies:
                 intent = new Intent(MainActivity.this, WebList.class);
                 bundle = new Bundle();
@@ -149,5 +170,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+public void exitApp(){
 
+}
 }
