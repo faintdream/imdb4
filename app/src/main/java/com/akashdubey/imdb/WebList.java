@@ -3,6 +3,7 @@ package com.akashdubey.imdb;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +52,10 @@ public class WebList extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerview1);
+        //everytime this activity load check if EXIT is set, if so exit the whole app
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            ActivityCompat.finishAffinity(WebList.this);
+        }
         if (dbHelper == null) {
             dbHelper = new DbHelper(this);
         }

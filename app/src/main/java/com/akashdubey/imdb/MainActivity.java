@@ -3,6 +3,7 @@ package com.akashdubey.imdb;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -144,10 +145,17 @@ public class MainActivity extends AppCompatActivity {
                 builder.setMessage("Exit IMDB App ?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        moveTaskToBack(true);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
-                        dialogInterface.dismiss();
+                        //since we open multiple activities, to properly exit from here,
+                        // let's go back to our Main Activity which is WebList
+                        // and set clear the activity stack for the intent
+                        Intent intent = new Intent(getApplicationContext(), WebList.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("EXIT", true);
+                        startActivity(intent);
+
+
+//                        dialogInterface.dismiss();
+
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
