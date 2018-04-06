@@ -55,6 +55,7 @@ public class WebList extends MainActivity {
         //everytime this activity load check if EXIT is set, if so exit the whole app
         if (getIntent().getBooleanExtra("EXIT", false)) {
             ActivityCompat.finishAffinity(WebList.this);
+
         }
         if (dbHelper == null) {
             dbHelper = new DbHelper(this);
@@ -63,10 +64,9 @@ public class WebList extends MainActivity {
         String type="";
         try{
             type = getIntent().getExtras().getString("type");
-
         }catch (RuntimeException e){
             e.printStackTrace();
-                myWebService.getMostPopularMovies();
+                myWebService.getUpcomingMovies();
         }
         if (type==null) {
             type="xxx";

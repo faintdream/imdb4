@@ -62,9 +62,6 @@ public class DetailsScreen extends MainActivity implements MovieIdListener {
         trailerRV = findViewById(R.id.trailerRV);
         castRV = findViewById(R.id.dtlCastRV);
         crewRV = findViewById(R.id.crewRV);
-
-
-
     }
 
 

@@ -21,11 +21,10 @@ import com.akashdubey.imdb.network.MyWebService;
 
 import static com.akashdubey.imdb.WebList.myWebService;
 import static com.akashdubey.imdb.db.Constants.refreshStatus;
-import static com.akashdubey.imdb.db.Db.runOnce;
-import static com.akashdubey.imdb.db.DbHelper.dbHelper;
+import static com.akashdubey.imdb.db.Constants.runOnce;
 
 
-// Even thou this class is named MainSctivity it is just a holder for Menus and associated actions
+// Even thou this class is named MainActivity it is just a holder for Menus and associated actions
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myWebService = new MyWebService();
-        if (runOnce==false) {
+        if (runOnce == false) {
             myWebService.getUpcomingMovies();
             myWebService.getGuestSessionID();
-            runOnce=true;
+            runOnce = true;
         }
 
     }
@@ -58,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     //disabling refresh menu item on app load
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.itemRefresh);
-        if(refreshStatus==false){
+        MenuItem item = menu.findItem(R.id.itemRefresh);
+        if (refreshStatus == false) {
             item.setEnabled(false);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -79,18 +78,18 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId) {
             case R.id.itemFavourite:
                 Toast.makeText(this, "Favourite movies", Toast.LENGTH_SHORT).show();
-                refreshStatus=true;
+                refreshStatus = true;
                 intent = new Intent(MainActivity.this, UserMovieList.class);
                 bundle = new Bundle();
                 bundle.putString("search", "favourites");
                 bundle.putString("refresh", "no");
                 intent.putExtras(bundle);
                 startActivity(intent);
-
                 break;
+
             case R.id.itemWatchlist:
                 Toast.makeText(this, "Watch bucket list", Toast.LENGTH_SHORT).show();
-                refreshStatus=true;
+                refreshStatus = true;
                 intent = new Intent(MainActivity.this, UserMovieList.class);
                 bundle = new Bundle();
                 bundle.putString("search", "watchlater");
@@ -152,19 +151,17 @@ public class MainActivity extends AppCompatActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("EXIT", true);
                         startActivity(intent);
-
-
-//                        dialogInterface.dismiss();
+                        dialogInterface.dismiss();
 
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).show();
-
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
                 break;
+
             case R.id.itemTopRatedMovies:
                 intent = new Intent(MainActivity.this, WebList.class);
                 bundle = new Bundle();
@@ -178,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-public void exitApp(){
+    public void exitApp() {
 
-}
+    }
 }
